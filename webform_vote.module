@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Implements hook_webform_component_info() from Webform.
+ */
+function webform_vote_webform_component_info() {
+  $components['vote'] = array(
+    'label' => t('Select vote '),
+    'description' => t('A Vote Select.'),
+    'features' => array(
+      'default_value' => FALSE,
+      'email_address' => TRUE,
+      'email_name' => TRUE,
+      'conditional_action_set' => TRUE,
+    ),
+	'conditional_type' => 'select',
+    'file' => 'components/vote.inc',
+  );
+  return $components;
+}
+
+
+/**
+ * Helper function for embedding the module js and css files.
+ */
+function webform_vote_insert_js_css() {
+  static $embedded = FALSE;
+
+  if (!$embedded) {
+    $path = drupal_get_path('module', 'webform_vote');
+    drupal_add_css($path . '/jq.barrating/themes/css-stars.css');
+    
+    drupal_add_js($path . '/jq.barrating/jquery.barrating.min.js');
+    drupal_add_js($path . '/js/webform_vote.js');
+    $embedded = TRUE;
+  }
+}
